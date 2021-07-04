@@ -26,27 +26,8 @@ public class StellarSDK: NSObject {
     public var orderbooks: OrderbookService
     public var paymentPaths: PaymentPathsService
     public var claimableBalances: ClaimableBalancesService
-    
-    public override init() {
-        horizonURL = "https://horizon-testnet.stellar.org"
-        
-        accounts = AccountService(baseURL: horizonURL)
-        assets = AssetsService(baseURL: horizonURL)
-        feeStats = FeeStatsService(baseURL: horizonURL)
-        effects = EffectsService(baseURL: horizonURL)
-        ledgers = LedgersService(baseURL: horizonURL)
-        operations = OperationsService(baseURL: horizonURL)
-        payments = PaymentsService(baseURL: horizonURL)
-        transactions = TransactionsService(baseURL: horizonURL)
-        trades = TradesService(baseURL: horizonURL)
-        tradeAggregations = TradeAggregationsService(baseURL: horizonURL)
-        offers = OffersService(baseURL: horizonURL)
-        orderbooks = OrderbookService(baseURL: horizonURL)
-        paymentPaths = PaymentPathsService(baseURL: horizonURL)
-        claimableBalances = ClaimableBalancesService(baseURL: horizonURL)
-    }
-    
-    public init(withHorizonUrl horizonURL:String) {
+
+    public init(withHorizonUrl horizonURL: String = "https://horizon-testnet.stellar.org") {
         self.horizonURL = horizonURL
         
         accounts = AccountService(baseURL: horizonURL)
