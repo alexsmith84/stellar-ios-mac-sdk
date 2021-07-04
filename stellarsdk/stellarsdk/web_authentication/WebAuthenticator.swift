@@ -102,7 +102,7 @@ public class WebAuthenticator {
     ///     - A WebAuthenticatorError describing the error.
     ///
     public static func from(domain: String, network:Network, secure: Bool = true, completion:@escaping WebAuthenticatorClosure) throws {
-        try? StellarToml.from(domain: domain, secure: secure, completion: { (result) -> (Void) in
+        try? StellarToml.from(domain: domain, secure: secure) { (result) -> (Void) in
             switch result {
             case .success(let toml):
                 if let authEndpoint = toml.accountInformation.webAuthEndpoint, let serverSigningKey = toml.accountInformation.signingKey {
@@ -150,14 +150,14 @@ public class WebAuthenticator {
                     switch challengeValid {
                     case .success:
                         if let signedTransaction = self.signTransaction(transactionEnvelopeXDR: transactionEnvelope, userKeyPair: keyPair) {
-                            self.sendCompletedChallenge(base64EnvelopeXDR: signedTransaction, completion: { (response) -> (Void) in
+                            self.sendCompletedChallenge(base64EnvelopeXDR: signedTransaction) { (response) -> (Void) in
                                 switch response {
                                 case .success(let jwtToken):
                                     completion(.success(jwtToken: jwtToken))
                                 case .failure(let error):
                                     completion(.failure(error: .requestError(error)))
                                 }
-                            })
+                            }
                         } else {
                             completion(.failure(error: .signingError))
                         }

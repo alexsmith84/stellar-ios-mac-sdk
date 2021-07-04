@@ -194,9 +194,9 @@ public class URIScheme: NSObject {
                     if transaction?.sourceAccount.ed25519AccountId == keyPair.accountId {
                         try? transaction?.sign(keyPair: keyPair, network: .testnet)
                         let callback = self.getValue(forParam: .callback, fromURL: url)
-                        self.submitTransaction(transactionXDR: transaction, callback: callback, keyPair: keyPair, completion: { (response) -> (Void) in
+                        self.submitTransaction(transactionXDR: transaction, callback: callback, keyPair: keyPair) { (response) -> (Void) in
                             completion(response)
-                        })
+                        }
                     } else {
                         completion(.failure(error: HorizonRequestError.requestFailed(message: "Transaction's source account is no match for signer's public key!")))
                     }
